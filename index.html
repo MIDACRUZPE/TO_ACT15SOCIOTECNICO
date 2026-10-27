@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Trabajo: El Enfoque Sociotécnico en la Era Digital</title>
+    <!-- CSS Embebido Directo / Cero Dependencias CDN Externas -->
+    <style>
+        /* CSS Reset & Variables de Diseño */
+        *, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #334155; }
+        html { line-height: 1.5; -webkit-text-size-adjust: 100%; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; color: #f8fafc; }
+        body { margin: 0; padding-bottom: 3rem; min-height: 100vh; }
+
+        /* Prevención de Zoom Automático en iOS (font-size >= 16px en inputs) */
+        input, textarea, button, select { font-family: inherit; font-size: 1rem; line-height: 1.5; color: inherit; }
+        
+        /* Layout & Utilities */
+        .max-w-6xl { max-width: 72rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .pt-8 { padding-top: 2rem; } /* CORREGIDO: era 'padding-pt', propiedad inválida */
+        .pt-6 { padding-top: 1.5rem; }
+        .pb-2 { padding-bottom: 0.5rem; }
+        .pb-3 { padding-bottom: 0.75rem; }
+        .pb-12 { padding-bottom: 3rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .p-6 { padding: 1.5rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        .py-1-5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+        .py-2-5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+        .px-2-5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-12 { margin-top: 3rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-1-5 { gap: 0.375rem; }
+        .space-y-8 > * + * { margin-top: 2rem; }
+        .space-y-1-5 > * + * { margin-top: 0.375rem; }
+        .hidden { display: none !important; }
+        .block { display: block; }
+        .inline-block { display: inline-block; }
+
+        /* Flexbox & Grid */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; } /* CORREGIDO: era 'justify-content: justify-content; center' */
+        .justify-end { justify-content: flex-end; }
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+
+        @media (min-width: 640px) {
+            .sm\:flex-row { flex-direction: row; }
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (min-width: 768px) {
+            .md\:flex-row { flex-direction: row; }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:text-left { text-align: left; }
+            .md\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+            .md\:w-auto { width: auto; }
+        }
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+
+        /* Modulo Sticky Adaptativo */
+        .sticky-header { position: sticky; top: 0; z-index: 50; background-color: #020617; border-bottom: 1px solid #1e293b; max-height: 25vh; overflow-y: auto; }
+
+        /* Styling de Componentes */
+        .bg-slate-950 { background-color: #020617; }
+        .bg-slate-900 { background-color: #0f172a; }
+        .bg-slate-800 { background-color: #1e293b; }
+        .bg-slate-700 { background-color: #334155; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-blue-950 { background-color: #172554; }
+        .bg-emerald-600 { background-color: #059669; }
+        .bg-emerald-500 { background-color: #10b981; }
+        .bg-emerald-500\/20 { background-color: rgba(16, 185, 129, 0.2); }
+        .bg-yellow-500\/20 { background-color: rgba(234, 179, 8, 0.2); }
+        .bg-yellow-500\/30 { background-color: rgba(234, 179, 8, 0.3); }
+        .bg-sky-500\/20 { background-color: rgba(14, 165, 233, 0.2); }
+        .bg-sky-500\/30 { background-color: rgba(14, 165, 233, 0.3); }
+        .bg-pink-500\/20 { background-color: rgba(236, 72, 153, 0.2); }
+        .bg-emerald-500\/30 { background-color: rgba(16, 185, 129, 0.3); }
+
+        .border { border-width: 1px; }
+        .border-b { border-bottom-width: 1px; }
+        .border-t { border-top-width: 1px; }
+        .border-l-4 { border-left-width: 4px; }
+        .border-slate-800 { border-color: #1e293b; }
+        .border-slate-700 { border-color: #334155; }
+        .border-blue-800 { border-color: #1e40af; }
+        .border-blue-900\/50 { border-color: rgba(30, 58, 138, 0.5); }
+        .border-pink-500 { border-color: #ec4899; }
+        .border-emerald-500 { border-color: #10b981; }
+        .border-red-500 { border-color: #ef4444; }
+
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-full { border-radius: 9999px; }
+        .rounded-md { border-radius: 0.375rem; }
+
+        /* Tipografías y Colores */
+        .text-white { color: #ffffff; }
+        .text-slate-100 { color: #f8fafc; }
+        .text-slate-200 { color: #e2e8f0; }
+        .text-slate-300 { color: #cbd5e1; }
+        .text-slate-400 { color: #94a3b8; }
+        .text-slate-500 { color: #64748b; }
+        .text-blue-400 { color: #60a5fa; }
+        .text-yellow-300 { color: #fde047; }
+        .text-sky-300 { color: #7dd3fc; }
+        .text-pink-300 { color: #f472b6; }
+        .text-emerald-300 { color: #6ee7b7; }
+        .text-emerald-400 { color: #34d399; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-extrabold { font-weight: 800; }
+        .font-black { font-weight: 900; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .italic { font-style: italic; }
+        .uppercase { text-transform: uppercase; }
+        .tracking-wider { letter-spacing: 0.05em; }
+        .tracking-tight { letter-spacing: -0.025em; }
+
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .leading-tight { line-height: 1.25; }
+        .leading-relaxed { line-height: 1.625; }
+        .transition { transition: all 0.2s ease; }
+
+        /* Estados hover/focus (antes inexistentes) */
+        .hover\:bg-slate-700:hover { background-color: #334155; }
+        .hover\:bg-emerald-500:hover { background-color: #10b981; }
+        .focus\:outline-none:focus { outline: none; }
+        .focus\:border-blue-500:focus { border-color: #3b82f6; }
+
+        /* Campos de Entrada Tactiles (Min touch-target >= 44px) */
+        input[type="text"] { min-height: 44px; padding: 0.625rem 0.875rem; }
+        input[type="text"].cursor-not-allowed { cursor: not-allowed; }
+        textarea { padding: 0.75rem; min-height: 100px; width: 100%; word-wrap: break-word; overflow-wrap: break-word; resize: vertical; }
+        /* CORREGIDO: 'items-center;' suelto sin propiedad → align-items: center */
+        button, label.btn-label { min-height: 44px; padding: 0.625rem 1.25rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+
+        .btn-primary { background: linear-gradient(to right, #2563eb, #4f46e5); color: #ffffff; font-weight: 700; border-radius: 0.5rem; transition: all 0.2s; }
+        .btn-primary:hover { opacity: 0.9; }
+        /* NUEVO: botón de éxito verde (el gradiente de btn-primary tapaba el background-color) */
+        .btn-success { background: #059669; color: #ffffff; font-weight: 700; border-radius: 0.5rem; transition: all 0.2s; }
+        .btn-success:hover { background: #10b981; }
+        .btn-disabled { background-color: #334155 !important; color: #94a3b8 !important; cursor: not-allowed !important; opacity: 0.5; border: 1px solid #475569; }
+
+        .w-full { width: 100%; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+
+        /* Regla de Impresión Directa */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            /* CORREGIDO: neutralizar fondos oscuros de tarjetas/secciones para que el texto negro sea legible */
+            section, div, footer, header, span, h1, h2, h3, h4, p, label, strong {
+                background: transparent !important;
+                color: #000 !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen pb-12">
+
+    <!-- Header Principal Sticky Adaptativo -->
+    <header class="sticky-header no-print">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 text-white font-black px-3 py-1-5 rounded-lg tracking-wider text-sm">
+                    POLI
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white leading-tight">Politécnico Grancolombiano</h1>
+                    <p class="text-xs text-slate-400">Plataforma Interactiva de Trabajo Tecnopedagógico</p>
+                </div>
+            </div>
+            
+            <!-- Barra de Acciones rápidas (Backup JSON) -->
+            <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                <button onclick="downloadBackup()" type="button" title="Descargar copia de seguridad local"
+                    class="px-3 py-1-5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md border border-slate-700 transition flex items-center gap-1-5">
+                    💾 Descargar JSON
+                </button>
+                
+                <label class="btn-label px-3 py-1-5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md border border-slate-700 transition cursor-pointer flex items-center gap-1-5">
+                    📂 Cargar JSON
+                    <input type="file" id="jsonInput" onchange="handleFileUpload(event)" accept=".json" class="hidden">
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pt-8">
+
+        <!-- Título de la Actividad -->
+        <div class="mb-8 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-blue-950 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 border border-blue-800">
+                Guía de Trabajo Práctico
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">El Enfoque Sociotécnico en la Era Digital</h2>
+            <p class="text-slate-400 mt-2 text-base">
+                Comprender la dualidad de las organizaciones como sistemas abiertos compuestos por personas y tecnología, y analizar cómo su equilibrio determina la eficiencia real de una empresa.
+            </p>
+        </div>
+
+        <!-- RUTA DE TRABAJO AUTÓNOMO -->
+        <section class="bg-slate-950 border border-blue-900/50 rounded-xl p-5 mb-8 no-print shadow-xl">
+            <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <span>🚀</span> Ruta de Trabajo Autónomo (Paso a Paso)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-blue-400 block mb-1">Paso 1: Lectura</span>
+                    Análisis del caso, las fases conceptuales y la base teórica del Enfoque Sociotécnico.
+                </div>
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-blue-400 block mb-1">Paso 2: Diligenciamiento</span>
+                    Completar reflexiones e investigación directamente en los campos del formulario.
+                </div>
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-blue-400 block mb-1">Paso 3: Transmisión</span>
+                    Hacer clic en <strong>"Enviar Trabajo"</strong> para transmitir las respuestas al sistema docente en Google Sheets.
+                </div>
+                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                    <span class="font-bold text-blue-400 block mb-1">Paso 4: Evidencia PDF</span>
+                    Exportar el comprobante impreso para cargar en la plataforma institucional.
+                </div>
+            </div>
+        </section>
+
+        <form id="sociotecnicoForm" onsubmit="event.preventDefault();" class="space-y-8">
+
+            <!-- SECCIÓN 0: DATOS DEL TALLER E IDENTIFICACIÓN -->
+            <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+                    <span>📋</span> Sección 0: Identificación del Equipo y Asignatura
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="input-materia" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Materia / Asignatura</label>
+                        <input type="text" id="input-materia" name="input-materia" value="Teoría Organizacional" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="actividad_id" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">ID de Actividad (Constante Fija)</label>
+                        <input type="text" id="actividad_id" name="actividad_id" value="TO_ACT15" readonly 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-lg text-blue-400 font-mono font-bold cursor-not-allowed">
+                    </div>
+                    <div>
+                        <label for="input-grupo" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Nombre o Número de Grupo / Pareja</label>
+                        <input type="text" id="input-grupo" name="input-grupo" placeholder="Ej. Grupo 04 - Sede Bogotá" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="input-participantes" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Nombres de Integrantes</label>
+                        <input type="text" id="input-participantes" name="input-participantes" placeholder="Ej. Ana Pérez, Carlos Gómez" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- FASE 1 -->
+            <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-3 border-b border-slate-700 pb-3">
+                    <span class="bg-yellow-500/20 text-yellow-300 text-xs font-bold px-2-5 py-1 rounded border border-yellow-500/30">FASE 1</span>
+                    <h3 class="text-xl font-bold text-white">Investigación Teórica con NotebookLM (30 minutos)</h3>
+                </div>
+                <p class="text-sm text-slate-300 mb-4 italic">
+                    <strong>Instrucción para el estudiante:</strong> Ingresa a NotebookLM y utiliza las fuentes proporcionadas para responder las siguientes interrogantes en los campos correspondientes de este formulario. Debes citar los números de fuente exactos.
+                </p>
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 mb-4 text-xs text-slate-300 space-y-1-5">
+                    <p>• <strong>El Origen:</strong> ¿Quiénes propusieron este enfoque, en qué año y bajo qué institución?</p>
+                    <p>• <strong>La Doble Función:</strong> Explica con tus palabras la diferencia entre el Subsistema Técnico y el Subsistema Social. ¿Cuál de ellos genera la "eficiencia potencial" y cuál la "eficiencia real"?</p>
+                    <p>• <strong>El Ciclo Vital:</strong> Describe las tres fases del modelo de importación-conversión-exportación según el enfoque de Tavistock.</p>
+                    <p>• <strong>La Premisa de Interdependencia:</strong> ¿Por qué se afirma que la tecnología no determina por sí sola la estructura, sino que influye en ella?</p>
+                </div>
+                <div>
+                    <label for="item-1" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        Respuesta Formulario — Ítem 1: Hallazgos de Investigación Teórica y Citas de Fuentes
+                    </label>
+                    <textarea id="item-1" name="item1" rows="6" placeholder="Registra aquí las respuestas a los 4 puntos teóricos especificando el origen, subsistemas, ciclo vital e interdependencia..."
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+                </div>
+            </section>
+
+            <!-- FASE 2 -->
+            <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-3 border-b border-slate-700 pb-3">
+                    <span class="bg-sky-500/20 text-sky-300 text-xs font-bold px-2-5 py-1 rounded border border-sky-500/30">FASE 2</span>
+                    <h3 class="text-xl font-bold text-white">Taller Práctico — "El Lente de Tavistock" (30 minutos)</h3>
+                </div>
+                <p class="text-sm text-slate-300 mb-3 italic">
+                    <strong>Instrucción:</strong> Trabajen en parejas. Elijan uno de los siguientes puestos de trabajo modernos y realicen un mapeo sociotécnico basado en la teoría.
+                </p>
+                <div class="bg-slate-900 border border-slate-700 p-3 rounded-lg mb-4 text-xs text-sky-300">
+                    <strong>Puestos a elegir:</strong> Community Manager de una multinacional, Cajero de un supermercado automatizado, o Programador de Inteligencia Artificial.
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="item-2" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            Respuesta Formulario — Ítem 2: Análisis del Subsistema Técnico
+                        </label>
+                        <textarea id="item-2" name="item2" rows="5" placeholder="Identifiquen las máquinas, el software, el territorio (lugar físico o virtual) y el tiempo que requiere la tarea..."
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+                    </div>
+                    <div>
+                        <label for="item-3" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            Respuesta Formulario — Ítem 3: Subsistema Social y Diagnóstico de Impacto
+                        </label>
+                        <textarea id="item-3" name="item3" rows="5" placeholder="Identifiquen habilidades psicológicas, relaciones sociales, motivación, y el diagnóstico ante actualización tecnológica..."
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FASE 3 -->
+            <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-3 border-b border-slate-700 pb-3">
+                    <span class="bg-pink-500/20 text-pink-300 text-xs font-bold px-2-5 py-1 rounded border border-pink-500/30">FASE 3</span>
+                    <h3 class="text-xl font-bold text-white">Debate de Aplicabilidad Estratégica (20 minutos)</h3>
+                </div>
+                <p class="text-sm text-slate-300 mb-3 italic">
+                    <strong>Instrucción:</strong> Utiliza el chat de NotebookLM para plantear la siguiente situación de "Consulta Crítica":
+                </p>
+                <div class="bg-slate-900 p-4 rounded-lg border-l-4 border-pink-500 italic text-slate-200 text-sm mb-4">
+                    "NotebookLM, según Chiavenato, si una empresa como MasterPezas tiene la mejor tecnología de punta pero sus empleados están en conflicto constante, ¿qué sucede con la eficiencia real de la organización?"
+                </div>
+                <div>
+                    <label for="item-4" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        Respuesta Formulario — Ítem 4: Reflexión Grupal sobre la Consulta Crítica
+                    </label>
+                    <textarea id="item-4" name="item4" rows="5" placeholder="Expliquen por qué el administrador actúa como integrador y cómo opera el concepto de morfogénesis en la adaptación técnica..."
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+                </div>
+            </section>
+
+            <!-- FASE 4 -->
+            <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-3 border-b border-slate-700 pb-3">
+                    <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2-5 py-1 rounded border border-emerald-500/30">FASE 4</span>
+                    <h3 class="text-xl font-bold text-white">Producto Final — El "Pitch" de Mejora (10 minutos)</h3>
+                </div>
+                <p class="text-sm text-slate-300 mb-3">
+                    Cada grupo debe redactar una recomendación de tres líneas para un gerente que acaba de comprar robots industriales pero ha descuidado la capacitación de su personal. Utilicen el concepto de <strong>Optimización Conjunta</strong> extraído de sus fuentes.
+                </p>
+                <div>
+                    <label for="item-5" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        Respuesta Formulario — Ítem 5: Pitch de Recomendación Ejecutiva
+                    </label>
+                    <textarea id="item-5" name="item5" rows="4" placeholder="Redacta la recomendación sintetizada aplicando la Optimización Conjunta..."
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-blue-500 leading-relaxed"></textarea>
+                </div>
+            </section>
+
+            <!-- BANNER DE NOTIFICACIÓN MODAL/TOAST (SIN ALERTS BLOQUEANTES) -->
+            <div id="notificationBanner" class="hidden p-4 rounded-lg text-sm font-semibold mb-4 text-center border"></div>
+
+            <!-- BOTONES DE ACCIÓN PRINCIPALES -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl no-print">
+                <div class="text-left w-full md:w-auto">
+                    <h4 class="text-white font-bold text-base">Panel de Entrega de Trabajo</h4>
+                    <p class="text-slate-400 text-xs" id="statusText">Diligencie todos los campos para transmitir la entrega al docente.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                    <!-- BOTÓN PRINCIPAL DE TRANSMISIÓN (CTA) -->
+                    <button type="button" onclick="sendData()" id="btnSendData" class="btn-primary w-full sm:w-auto">
+                        📤 Enviar Trabajo
+                    </button>
+
+                    <!-- BOTÓN PDF BLOQUEADO DINÁMICAMENTE -->
+                    <button type="button" onclick="openPreview()" id="btnPdf" class="btn-disabled w-full sm:w-auto" disabled
+                        title="⚠️ Debes presionar 'Enviar Trabajo' para habilitar la descarga del reporte PDF.">
+                        🖨️ Exportar a PDF / Imprimir
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </main>
+
+    <footer class="max-w-6xl mx-auto px-4 mt-12 text-center text-slate-500 text-xs italic border-t border-slate-800 pt-6 no-print">
+        Politécnico Grancolombiano • Centro de Liderazgo y Desarrollo Tecnopedagógico • 2026
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT CORREGIDA Y AUDITADA -->
+    <script>
+        const ACTIVIDAD_ID_CONST = "TO_ACT15";
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbykP5mOpfvgjO-R3aMf2t8tzAg-nc5Tc2cpVmtpRh33C-ZwYUW9G9-CWr-bq7zVEv5s/exec";
+        
+        let datosTransmitidos = false;
+        let lastTransmittedHash = "";
+
+        const inputsToAutoSave = [
+            'input-materia', 'input-grupo', 'input-participantes',
+            'item-1', 'item-2', 'item-3', 'item-4', 'item-5'
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreFromLocalStorage();
+            
+            inputsToAutoSave.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        // REGLA DE SEGURIDAD 2: Si el estudiante edita cualquier campo tras enviar, el candado del PDF se re-activa
+                        if (datosTransmitidos) {
+                            const currentHash = computeDataHash();
+                            if (currentHash !== lastTransmittedHash) {
+                                datosTransmitidos = false;
+                                disablePdfButton("⚠️ Detectamos cambios en las respuestas. Vuelve a hacer clic en 'Enviar Trabajo' para actualizar la entrega y descargar el PDF.");
+                            }
+                        }
+                        saveToLocalStorage();
+                    });
+                }
+            });
+        });
+
+        function computeDataHash() {
+            const data = getFormData();
+            return JSON.stringify(data);
+        }
+
+        function showNotification(message, isSuccess = true) {
+            const banner = document.getElementById('notificationBanner');
+            if (!banner) return;
+            banner.classList.remove('hidden', 'bg-emerald-600', 'bg-red-600', 'border-emerald-500', 'border-red-500');
+            
+            if (isSuccess) {
+                banner.classList.add('bg-emerald-600', 'border-emerald-500', 'text-white');
+            } else {
+                banner.classList.add('bg-red-600', 'border-red-500', 'text-white');
+            }
+            banner.innerHTML = message;
+            banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function disablePdfButton(reason) {
+            const btnPdf = document.getElementById('btnPdf');
+            if (btnPdf) {
+                btnPdf.disabled = true;
+                btnPdf.className = "btn-disabled w-full sm:w-auto";
+                btnPdf.title = "⚠️ Debes presionar 'Enviar Trabajo' para habilitar la descarga del reporte PDF.";
+            }
+            const statusText = document.getElementById('statusText');
+            if (statusText) {
+                statusText.innerText = reason || "Diligencie todos los campos para transmitir la entrega al docente.";
+                statusText.className = "text-slate-400 text-xs";
+            }
+        }
+
+        function enablePdfButton() {
+            const btnPdf = document.getElementById('btnPdf');
+            if (btnPdf) {
+                btnPdf.disabled = false;
+                btnPdf.removeAttribute('title');
+                /* CORREGIDO: se usaba btn-primary + bg-emerald-600, pero el gradiente
+                   (background-image) se dibujaba encima del color verde */
+                btnPdf.className = "btn-success w-full sm:w-auto";
+            }
+            const statusText = document.getElementById('statusText');
+            if (statusText) {
+                statusText.innerHTML = "<span class='text-emerald-400 font-semibold'>✅ Transmisión completada. Reporte en PDF habilitado.</span>";
+            }
+        }
+
+        function saveToLocalStorage() {
+            try {
+                const data = {};
+                inputsToAutoSave.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) data[id] = el.value;
+                });
+                localStorage.setItem('sociotecnico_TO_ACT15_data', JSON.stringify(data));
+                localStorage.setItem('sociotecnico_TO_ACT15_submitted', datosTransmitidos ? 'true' : 'false');
+                localStorage.setItem('sociotecnico_TO_ACT15_hash', lastTransmittedHash);
+            } catch (e) {
+                console.warn("Storage no disponible o restringido por política del navegador.");
+            }
+        }
+
+        function restoreFromLocalStorage() {
+            try {
+                const saved = localStorage.getItem('sociotecnico_TO_ACT15_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    inputsToAutoSave.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.value = data[id] !== undefined ? data[id] : '';
+                    });
+                }
+
+                const savedHash = localStorage.getItem('sociotecnico_TO_ACT15_hash');
+                if (savedHash) lastTransmittedHash = savedHash;
+
+                const submittedState = localStorage.getItem('sociotecnico_TO_ACT15_submitted');
+                if (submittedState === 'true' && computeDataHash() === lastTransmittedHash) {
+                    datosTransmitidos = true;
+                    enablePdfButton();
+                } else {
+                    datosTransmitidos = false;
+                    disablePdfButton();
+                }
+            } catch (e) {
+                console.warn("No se pudo restaurar el estado previo.");
+            }
+        }
+
+        function getFormData() {
+            return {
+                materia: document.getElementById('input-materia')?.value || "Teoría Organizacional",
+                actividad_id: ACTIVIDAD_ID_CONST, // REGLA DE SEGURIDAD 5: Forzar el ID constante congelado
+                grupo: document.getElementById('input-grupo')?.value || "",
+                participantes: document.getElementById('input-participantes')?.value || "",
+                item1: document.getElementById('item-1')?.value || "",
+                item2: document.getElementById('item-2')?.value || "",
+                item3: document.getElementById('item-3')?.value || "",
+                item4: document.getElementById('item-4')?.value || "",
+                item5: document.getElementById('item-5')?.value || "",
+                estado: "Entregado"
+            };
+        }
+
+        function validateFields() {
+            const data = getFormData();
+            const missing = [];
+            if (!data.grupo.trim()) missing.push("Nombre o Número de Grupo");
+            if (!data.participantes.trim()) missing.push("Nombres de Integrantes");
+            if (!data.item1.trim()) missing.push("Ítem 1 (Investigación Teórica)");
+            if (!data.item2.trim()) missing.push("Ítem 2 (Subsistema Técnico)");
+            if (!data.item3.trim()) missing.push("Ítem 3 (Subsistema Social y Diagnóstico)");
+            if (!data.item4.trim()) missing.push("Ítem 4 (Debate de Aplicabilidad)");
+            if (!data.item5.trim()) missing.push("Ítem 5 (Pitch de Recomendación)");
+            
+            return missing;
+        }
+
+        const sendData = async () => {
+            const missing = validateFields();
+            if (missing.length > 0) {
+                /* CORREGIDO: el '\n' no renderiza en innerHTML; los ítems ya van con <br> */
+                showNotification("⚠️ Por favor diligencie los campos faltantes para transmitir:<br>• " + missing.join("<br>• "), false);
+                return;
+            }
+
+            const btnSend = document.getElementById('btnSendData');
+            btnSend.disabled = true;
+            btnSend.innerText = "Transmitiendo...";
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(getFormData())
+                });
+
+                // REGLA DE HONESTIDAD: Explicación precisa sobre respuestas en modo no-cors
+                datosTransmitidos = true;
+                lastTransmittedHash = computeDataHash();
+                saveToLocalStorage();
+                
+                showNotification("✅ Solicitud de envío transmitida. Tu reporte en PDF ha sido habilitado.", true);
+                enablePdfButton();
+
+            } catch (error) {
+                datosTransmitidos = false;
+                disablePdfButton("❌ No se pudo conectar con el servidor. Descargue su copia en JSON o reintente.");
+                showNotification("❌ Error de red al intentar transmitir la entrega. Utilice 'Descargar JSON' de respaldo.", false);
+            } finally {
+                btnSend.disabled = false;
+                btnSend.innerText = "📤 Enviar Trabajo";
+            }
+        };
+
+        function downloadBackup() {
+            const data = getFormData();
+            /* CORREGIDO: el respaldo ya no declara "Entregado" si aún no se ha transmitido */
+            const backup = { ...data, estado: datosTransmitidos ? "Entregado" : "Borrador" };
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Entrega_${backup.actividad_id}_${(backup.grupo || 'Grupo').replace(/\s+/g, '_')}.json`;
+            a.click();
+            // Evitar revocación inmediata que cancela la descarga en Safari/WebKit
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+        }
+
+        function handleFileUpload(event) {
+            const input = event.target;
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    // Validación de esquema JSON para evitar arreglos u objetos no válidos
+                    if (typeof parsed !== 'object' || Array.isArray(parsed) || !parsed) {
+                        throw new Error("Formato inválido");
+                    }
+
+                    /* CORREGIDO: rechazar respaldos de otra actividad (los campos son
+                       genéricos y podían contaminar la entrega desde otro formulario) */
+                    if (parsed.actividad_id && parsed.actividad_id !== ACTIVIDAD_ID_CONST) {
+                        throw new Error("Actividad distinta");
+                    }
+
+                    // Limpieza previa o restauración completa incluyendo borrados
+                    inputsToAutoSave.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.value = '';
+                    });
+
+                    if (parsed.materia) document.getElementById('input-materia').value = parsed.materia;
+                    if (parsed.grupo) document.getElementById('input-grupo').value = parsed.grupo;
+                    if (parsed.participantes) document.getElementById('input-participantes').value = parsed.participantes;
+                    if (parsed.item1) document.getElementById('item-1').value = parsed.item1;
+                    if (parsed.item2) document.getElementById('item-2').value = parsed.item2;
+                    if (parsed.item3) document.getElementById('item-3').value = parsed.item3;
+                    if (parsed.item4) document.getElementById('item-4').value = parsed.item4;
+                    if (parsed.item5) document.getElementById('item-5').value = parsed.item5;
+
+                    datosTransmitidos = false;
+                    disablePdfButton("⚠️ Archivo cargado. Debes transmitir la entrega para habilitar el PDF.");
+                    saveToLocalStorage();
+                    showNotification("📂 Archivo JSON cargado correctamente.", true);
+                } catch (err) {
+                    if (err.message === "Actividad distinta") {
+                        showNotification("❌ El archivo pertenece a otra actividad (" + escapeHTML(String(parsed && parsed.actividad_id)) + "). No se cargó ningún dato.", false);
+                    } else {
+                        showNotification("❌ El archivo no corresponde a una copia de respaldo JSON válida.", false);
+                    }
+                } finally {
+                    input.value = ''; // Reiniciar input para permitir recargar el mismo archivo
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function openPreview() {
+            if (!datosTransmitidos || computeDataHash() !== lastTransmittedHash) {
+                showNotification("⛔ Acción Bloqueada: Realizaste cambios no transmitidos. Haz clic en 'Enviar Trabajo'.", false);
+                return;
+            }
+
+            const data = getFormData();
+            const printWindow = window.open('', '_blank');
+
+            if (!printWindow) {
+                showNotification("⚠️ Ventana emergente bloqueada por el navegador. Por favor permite los pop-ups para ver el PDF.", false);
+                return;
+            }
+
+            const contentHTML = `
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Reporte de Entrega — ${escapeHTML(data.actividad_id)}</title>
+                <style>
+                    @page { size: A4; margin: 15mm; }
+                    * { box-sizing: border-box; }
+                    body {
+                        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        color: #0f172a;
+                        line-height: 1.4;
+                        padding: 0;
+                        margin: 0;
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                    }
+                    .header {
+                        border-bottom: 2px solid #1e40af;
+                        padding-bottom: 10px;
+                        margin-bottom: 15px;
+                    }
+                    .header h1 {
+                        color: #1e40af;
+                        margin: 0 0 4px 0;
+                        font-size: 18pt;
+                    }
+                    .header p {
+                        margin: 0;
+                        font-size: 10pt;
+                        color: #475569;
+                    }
+                    .meta-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 8px;
+                        background: #f8fafc;
+                        padding: 10px;
+                        border: 1px solid #cbd5e1;
+                        border-radius: 4px;
+                        margin-bottom: 15px;
+                        font-size: 9pt;
+                        word-break: break-word;
+                    }
+                    .meta-item strong {
+                        color: #0f172a;
+                    }
+                    .section-box {
+                        border: 1px solid #cbd5e1;
+                        border-radius: 4px;
+                        padding: 10px;
+                        margin-bottom: 12px;
+                        page-break-inside: auto;
+                    }
+                    .section-title {
+                        font-size: 10pt;
+                        font-weight: bold;
+                        color: #1e40af;
+                        text-transform: uppercase;
+                        margin-bottom: 6px;
+                        border-bottom: 1px solid #e2e8f0;
+                        padding-bottom: 2px;
+                        page-break-inside: avoid;
+                    }
+                    .response-text {
+                        font-size: 9.5pt;
+                        white-space: pre-wrap;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        color: #1e293b;
+                    }
+                    .no-print-btn {
+                        background-color: #1e40af;
+                        color: #ffffff;
+                        border: none;
+                        padding: 10px 18px;
+                        font-weight: bold;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        margin-bottom: 15px;
+                        font-size: 10pt;
+                    }
+                    @media print {
+                        .no-print-btn { display: none !important; }
+                        body { width: 100%; margin: 0; }
+                    }
+                    @media (max-width: 600px) {
+                        .meta-grid { grid-template-columns: 1fr; }
+                    }
+                </style>
+            </head>
+            <body>
+                <button class="no-print-btn" onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button>
+
+                <div class="header">
+                    <h1>Politécnico Grancolombiano</h1>
+                    <p>Reporte Oficial de Entrega — El Enfoque Sociotécnico en la Era Digital</p>
+                </div>
+
+                <div class="meta-grid">
+                    <div class="meta-item"><strong>Asignatura:</strong> ${escapeHTML(data.materia)}</div>
+                    <div class="meta-item"><strong>ID Actividad:</strong> ${escapeHTML(data.actividad_id)}</div>
+                    <div class="meta-item"><strong>Grupo/Pareja:</strong> ${escapeHTML(data.grupo)}</div>
+                    <div class="meta-item"><strong>Integrantes:</strong> ${escapeHTML(data.participantes)}</div>
+                    <div class="meta-item"><strong>Estado Transmisión:</strong> ${escapeHTML(data.estado)}</div>
+                    <div class="meta-item"><strong>Fecha de Exportación:</strong> ${new Date().toLocaleString('es-CO')}</div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-title">Ítem 1: Investigación Teórica con NotebookLM</div>
+                    <div class="response-text">${escapeHTML(data.item1) || 'Sin respuesta registrada.'}</div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-title">Ítem 2: Taller Práctico — Subsistema Técnico</div>
+                    <div class="response-text">${escapeHTML(data.item2) || 'Sin respuesta registrada.'}</div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-title">Ítem 3: Taller Práctico — Subsistema Social y Diagnóstico</div>
+                    <div class="response-text">${escapeHTML(data.item3) || 'Sin respuesta registrada.'}</div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-title">Ítem 4: Debate de Aplicabilidad Estratégica (Caso MasterPezas)</div>
+                    <div class="response-text">${escapeHTML(data.item4) || 'Sin respuesta registrada.'}</div>
+                </div>
+
+                <div class="section-box">
+                    <div class="section-title">Ítem 5: Producto Final — Pitch de Recomendación</div>
+                    <div class="response-text">${escapeHTML(data.item5) || 'Sin respuesta registrada.'}</div>
+                </div>
+
+            </body>
+            </html>
+            `;
+
+            printWindow.document.write(contentHTML);
+            printWindow.document.close();
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
